@@ -167,7 +167,7 @@ Partial Class Form1
         Me.shape_led4.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led4.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led4.BorderColor = System.Drawing.Color.Black
-        Me.shape_led4.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led4.FillColor = System.Drawing.Color.Gray
         Me.shape_led4.Location = New System.Drawing.Point(350, 150)
         Me.shape_led4.Name = "shape_led4"
         Me.shape_led4.Size = New System.Drawing.Size(35, 35)
@@ -177,7 +177,7 @@ Partial Class Form1
         Me.shape_led5.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led5.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led5.BorderColor = System.Drawing.Color.Black
-        Me.shape_led5.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led5.FillColor = System.Drawing.Color.Gray
         Me.shape_led5.Location = New System.Drawing.Point(300, 150)
         Me.shape_led5.Name = "shape_led5"
         Me.shape_led5.Size = New System.Drawing.Size(35, 35)
@@ -187,7 +187,7 @@ Partial Class Form1
         Me.shape_led7.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led7.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led7.BorderColor = System.Drawing.Color.Black
-        Me.shape_led7.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led7.FillColor = System.Drawing.Color.Gray
         Me.shape_led7.Location = New System.Drawing.Point(200, 150)
         Me.shape_led7.Name = "shape_led7"
         Me.shape_led7.Size = New System.Drawing.Size(35, 35)
@@ -197,7 +197,7 @@ Partial Class Form1
         Me.shape_led6.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led6.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led6.BorderColor = System.Drawing.Color.Black
-        Me.shape_led6.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led6.FillColor = System.Drawing.Color.Gray
         Me.shape_led6.Location = New System.Drawing.Point(250, 150)
         Me.shape_led6.Name = "shape_led6"
         Me.shape_led6.Size = New System.Drawing.Size(35, 35)
@@ -207,7 +207,7 @@ Partial Class Form1
         Me.shape_led2.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led2.BorderColor = System.Drawing.Color.Black
-        Me.shape_led2.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led2.FillColor = System.Drawing.Color.Gray
         Me.shape_led2.Location = New System.Drawing.Point(450, 150)
         Me.shape_led2.Name = "shape_led2"
         Me.shape_led2.Size = New System.Drawing.Size(35, 35)
@@ -217,7 +217,7 @@ Partial Class Form1
         Me.shape_led3.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led3.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led3.BorderColor = System.Drawing.Color.Black
-        Me.shape_led3.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led3.FillColor = System.Drawing.Color.Gray
         Me.shape_led3.Location = New System.Drawing.Point(400, 150)
         Me.shape_led3.Name = "shape_led3"
         Me.shape_led3.Size = New System.Drawing.Size(35, 35)
@@ -227,7 +227,7 @@ Partial Class Form1
         Me.shape_led1.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led1.BorderColor = System.Drawing.Color.Black
-        Me.shape_led1.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led1.FillColor = System.Drawing.Color.Gray
         Me.shape_led1.Location = New System.Drawing.Point(500, 150)
         Me.shape_led1.Name = "shape_led1"
         Me.shape_led1.Size = New System.Drawing.Size(35, 35)
@@ -237,7 +237,7 @@ Partial Class Form1
         Me.shape_led0.BackColor = System.Drawing.SystemColors.GrayText
         Me.shape_led0.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led0.BorderColor = System.Drawing.Color.Black
-        Me.shape_led0.FillColor = System.Drawing.SystemColors.GrayText
+        Me.shape_led0.FillColor = System.Drawing.Color.Gray
         Me.shape_led0.Location = New System.Drawing.Point(550, 150)
         Me.shape_led0.Name = "shape_led0"
         Me.shape_led0.Size = New System.Drawing.Size(35, 35)

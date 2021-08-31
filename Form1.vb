@@ -24,76 +24,76 @@
         Dim cnt As Integer
         Dim valBin_String As String = ""
         For cnt = 1 To 8
-            valBin_String = Convert.ToString(checkBit((cnt - 1))) & valBin_String
+            valBin_String = Convert.ToString(checkBit((cnt - 1), Color.Red, Color.Gray)) & valBin_String
         Next
         Return valBin_String
     End Function
 
-    Function checkBit(numOfLed As Integer) As Integer
+    Function checkBit(numOfLed As Integer, colorLedOn As Color, colorLedOff As Color) As Integer
         Dim checkBitResult As Integer
         Select Case numOfLed
             Case 0
                 If chb_bit0.Checked = True Then
-                    shape_led0.BackColor = Color.Cyan
+                    shape_led0.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led0.BackColor = Color.DarkGray
+                    shape_led0.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
             Case 1
                 If chb_bit1.Checked = True Then
-                    shape_led1.BackColor = Color.Cyan
+                    shape_led1.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led1.BackColor = Color.DarkGray
+                    shape_led1.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
             Case 2
                 If chb_bit2.Checked = True Then
-                    shape_led2.BackColor = Color.Cyan
+                    shape_led2.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led2.BackColor = Color.DarkGray
+                    shape_led2.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
             Case 3
                 If chb_bit3.Checked = True Then
-                    shape_led3.BackColor = Color.Cyan
+                    shape_led3.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led3.BackColor = Color.DarkGray
+                    shape_led3.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
             Case 4
                 If chb_bit4.Checked = True Then
-                    shape_led4.BackColor = Color.Cyan
+                    shape_led4.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led4.BackColor = Color.DarkGray
+                    shape_led4.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
             Case 5
                 If chb_bit5.Checked = True Then
-                    shape_led5.BackColor = Color.Cyan
+                    shape_led5.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led5.BackColor = Color.DarkGray
+                    shape_led5.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
             Case 6
                 If chb_bit6.Checked = True Then
-                    shape_led6.BackColor = Color.Cyan
+                    shape_led6.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led6.BackColor = Color.DarkGray
+                    shape_led6.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
             Case 7
                 If chb_bit7.Checked = True Then
-                    shape_led7.BackColor = Color.Cyan
+                    shape_led7.BackColor = colorLedOn
                     checkBitResult = 1
                 Else
-                    shape_led7.BackColor = Color.DarkGray
+                    shape_led7.BackColor = colorLedOff
                     checkBitResult = 0
                 End If
         End Select
