@@ -1,11 +1,6 @@
 ﻿Public Class Form1
 
     Private Sub btn_send_Click(sender As Object, e As EventArgs) Handles btn_send.Click
-        Dim cnt As Integer
-        Dim valBin_String As String = ""
-        For cnt = 1 To 8
-            valBin_String = valBin_String & Convert.ToString(checkBit((cnt - 1)))
-        Next
         TextBox1.Text = led2tbx()
     End Sub
 
@@ -26,6 +21,7 @@
     End Sub
 
     Function led2tbx() As String
+        Dim cnt As Integer
         Dim valBin_String As String = ""
         For cnt = 1 To 8
             valBin_String = Convert.ToString(checkBit((cnt - 1))) & valBin_String
@@ -103,6 +99,4 @@
         End Select
         Return checkBitResult
     End Function
-
-
 End Class
