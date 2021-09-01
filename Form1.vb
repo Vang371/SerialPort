@@ -1,4 +1,6 @@
 ﻿Public Class Form1
+    Dim colorLedOn As Color = Color.Red
+    Dim colorLedOff As Color = Color.Gray
 
     Private Sub btn_send_Click(sender As Object, e As EventArgs) Handles btn_send.Click
         TextBox1.Text = led2tbx()
@@ -22,24 +24,24 @@
 
     Function led2tbx() As String
         Dim valBin_String As String = ""
-        valBin_String = Convert.ToString(checkBit(chb_bit0, shape_led0, Color.Red, Color.Gray)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit1, shape_led1, Color.Red, Color.Gray)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit2, shape_led2, Color.Red, Color.Gray)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit3, shape_led3, Color.Red, Color.Gray)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit4, shape_led4, Color.Red, Color.Gray)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit5, shape_led5, Color.Red, Color.Gray)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit6, shape_led6, Color.Red, Color.Gray)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit7, shape_led7, Color.Red, Color.Gray)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit0, shape_led0, colorLedOn, colorLedOff)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit1, shape_led1, colorLedOn, colorLedOff)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit2, shape_led2, colorLedOn, colorLedOff)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit3, shape_led3, colorLedOn, colorLedOff)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit4, shape_led4, colorLedOn, colorLedOff)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit5, shape_led5, colorLedOn, colorLedOff)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit6, shape_led6, colorLedOn, colorLedOff)) & valBin_String
+        valBin_String = Convert.ToString(checkBit(chb_bit7, shape_led7, colorLedOn, colorLedOff)) & valBin_String
 
         Return valBin_String
     End Function
 
-    Function checkBit(bitCheck As CheckBox, shpCtrl As Microsoft.VisualBasic.PowerPacks.OvalShape, colorLedOn As Color, colorLedOff As Color) As Integer
+    Function checkBit(bitCheck As CheckBox, shpCtrl As PowerPacks.OvalShape, clrLedOn As Color, clrLedOff As Color) As Integer
         If bitCheck.Checked = True Then
-            shpCtrl.BackColor = colorLedOn
+            shpCtrl.BackColor = clrLedOn
             Return 1
         Else
-            shpCtrl.BackColor = colorLedOff
+            shpCtrl.BackColor = clrLedOff
             Return 0
         End If
     End Function
