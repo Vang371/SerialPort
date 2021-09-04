@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.chb_bit0 = New System.Windows.Forms.CheckBox()
         Me.chb_bit1 = New System.Windows.Forms.CheckBox()
         Me.chb_bit3 = New System.Windows.Forms.CheckBox()
@@ -43,12 +44,16 @@ Partial Class Form1
         Me.shape_led1 = New Microsoft.VisualBasic.PowerPacks.OvalShape()
         Me.shape_led0 = New Microsoft.VisualBasic.PowerPacks.OvalShape()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.SerialPort = New System.IO.Ports.SerialPort(Me.components)
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Cbb_SerialPort = New System.Windows.Forms.ComboBox()
+        Me.btn_connect = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'chb_bit0
         '
         Me.chb_bit0.AutoSize = True
-        Me.chb_bit0.Location = New System.Drawing.Point(100, 150)
+        Me.chb_bit0.Location = New System.Drawing.Point(68, 163)
         Me.chb_bit0.Name = "chb_bit0"
         Me.chb_bit0.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit0.TabIndex = 0
@@ -58,7 +63,7 @@ Partial Class Form1
         'chb_bit1
         '
         Me.chb_bit1.AutoSize = True
-        Me.chb_bit1.Location = New System.Drawing.Point(100, 177)
+        Me.chb_bit1.Location = New System.Drawing.Point(68, 190)
         Me.chb_bit1.Name = "chb_bit1"
         Me.chb_bit1.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit1.TabIndex = 1
@@ -68,7 +73,7 @@ Partial Class Form1
         'chb_bit3
         '
         Me.chb_bit3.AutoSize = True
-        Me.chb_bit3.Location = New System.Drawing.Point(100, 231)
+        Me.chb_bit3.Location = New System.Drawing.Point(68, 244)
         Me.chb_bit3.Name = "chb_bit3"
         Me.chb_bit3.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit3.TabIndex = 3
@@ -78,7 +83,7 @@ Partial Class Form1
         'chb_bit2
         '
         Me.chb_bit2.AutoSize = True
-        Me.chb_bit2.Location = New System.Drawing.Point(100, 204)
+        Me.chb_bit2.Location = New System.Drawing.Point(68, 217)
         Me.chb_bit2.Name = "chb_bit2"
         Me.chb_bit2.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit2.TabIndex = 2
@@ -88,7 +93,7 @@ Partial Class Form1
         'chb_bit7
         '
         Me.chb_bit7.AutoSize = True
-        Me.chb_bit7.Location = New System.Drawing.Point(100, 339)
+        Me.chb_bit7.Location = New System.Drawing.Point(68, 352)
         Me.chb_bit7.Name = "chb_bit7"
         Me.chb_bit7.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit7.TabIndex = 7
@@ -98,7 +103,7 @@ Partial Class Form1
         'chb_bit6
         '
         Me.chb_bit6.AutoSize = True
-        Me.chb_bit6.Location = New System.Drawing.Point(100, 312)
+        Me.chb_bit6.Location = New System.Drawing.Point(68, 325)
         Me.chb_bit6.Name = "chb_bit6"
         Me.chb_bit6.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit6.TabIndex = 6
@@ -108,7 +113,7 @@ Partial Class Form1
         'chb_bit5
         '
         Me.chb_bit5.AutoSize = True
-        Me.chb_bit5.Location = New System.Drawing.Point(100, 285)
+        Me.chb_bit5.Location = New System.Drawing.Point(68, 298)
         Me.chb_bit5.Name = "chb_bit5"
         Me.chb_bit5.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit5.TabIndex = 5
@@ -118,7 +123,7 @@ Partial Class Form1
         'chb_bit4
         '
         Me.chb_bit4.AutoSize = True
-        Me.chb_bit4.Location = New System.Drawing.Point(100, 258)
+        Me.chb_bit4.Location = New System.Drawing.Point(68, 271)
         Me.chb_bit4.Name = "chb_bit4"
         Me.chb_bit4.Size = New System.Drawing.Size(63, 21)
         Me.chb_bit4.TabIndex = 4
@@ -127,7 +132,7 @@ Partial Class Form1
         '
         'btn_send
         '
-        Me.btn_send.Location = New System.Drawing.Point(271, 433)
+        Me.btn_send.Location = New System.Drawing.Point(202, 397)
         Me.btn_send.Name = "btn_send"
         Me.btn_send.Size = New System.Drawing.Size(75, 23)
         Me.btn_send.TabIndex = 9
@@ -136,7 +141,7 @@ Partial Class Form1
         '
         'btn_clear
         '
-        Me.btn_clear.Location = New System.Drawing.Point(352, 433)
+        Me.btn_clear.Location = New System.Drawing.Point(283, 397)
         Me.btn_clear.Name = "btn_clear"
         Me.btn_clear.Size = New System.Drawing.Size(75, 23)
         Me.btn_clear.TabIndex = 10
@@ -145,7 +150,7 @@ Partial Class Form1
         '
         'btn_quit
         '
-        Me.btn_quit.Location = New System.Drawing.Point(433, 433)
+        Me.btn_quit.Location = New System.Drawing.Point(364, 397)
         Me.btn_quit.Name = "btn_quit"
         Me.btn_quit.Size = New System.Drawing.Size(75, 23)
         Me.btn_quit.TabIndex = 11
@@ -168,7 +173,7 @@ Partial Class Form1
         Me.shape_led4.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led4.BorderColor = System.Drawing.Color.Black
         Me.shape_led4.FillColor = System.Drawing.Color.Gray
-        Me.shape_led4.Location = New System.Drawing.Point(350, 150)
+        Me.shape_led4.Location = New System.Drawing.Point(341, 161)
         Me.shape_led4.Name = "shape_led4"
         Me.shape_led4.Size = New System.Drawing.Size(35, 35)
         '
@@ -178,7 +183,7 @@ Partial Class Form1
         Me.shape_led5.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led5.BorderColor = System.Drawing.Color.Black
         Me.shape_led5.FillColor = System.Drawing.Color.Gray
-        Me.shape_led5.Location = New System.Drawing.Point(300, 150)
+        Me.shape_led5.Location = New System.Drawing.Point(291, 161)
         Me.shape_led5.Name = "shape_led5"
         Me.shape_led5.Size = New System.Drawing.Size(35, 35)
         '
@@ -188,7 +193,7 @@ Partial Class Form1
         Me.shape_led7.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led7.BorderColor = System.Drawing.Color.Black
         Me.shape_led7.FillColor = System.Drawing.Color.Gray
-        Me.shape_led7.Location = New System.Drawing.Point(200, 150)
+        Me.shape_led7.Location = New System.Drawing.Point(191, 161)
         Me.shape_led7.Name = "shape_led7"
         Me.shape_led7.Size = New System.Drawing.Size(35, 35)
         '
@@ -198,7 +203,7 @@ Partial Class Form1
         Me.shape_led6.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led6.BorderColor = System.Drawing.Color.Black
         Me.shape_led6.FillColor = System.Drawing.Color.Gray
-        Me.shape_led6.Location = New System.Drawing.Point(250, 150)
+        Me.shape_led6.Location = New System.Drawing.Point(241, 161)
         Me.shape_led6.Name = "shape_led6"
         Me.shape_led6.Size = New System.Drawing.Size(35, 35)
         '
@@ -208,7 +213,7 @@ Partial Class Form1
         Me.shape_led2.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led2.BorderColor = System.Drawing.Color.Black
         Me.shape_led2.FillColor = System.Drawing.Color.Gray
-        Me.shape_led2.Location = New System.Drawing.Point(450, 150)
+        Me.shape_led2.Location = New System.Drawing.Point(441, 161)
         Me.shape_led2.Name = "shape_led2"
         Me.shape_led2.Size = New System.Drawing.Size(35, 35)
         '
@@ -218,7 +223,7 @@ Partial Class Form1
         Me.shape_led3.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led3.BorderColor = System.Drawing.Color.Black
         Me.shape_led3.FillColor = System.Drawing.Color.Gray
-        Me.shape_led3.Location = New System.Drawing.Point(400, 150)
+        Me.shape_led3.Location = New System.Drawing.Point(391, 161)
         Me.shape_led3.Name = "shape_led3"
         Me.shape_led3.Size = New System.Drawing.Size(35, 35)
         '
@@ -228,7 +233,7 @@ Partial Class Form1
         Me.shape_led1.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led1.BorderColor = System.Drawing.Color.Black
         Me.shape_led1.FillColor = System.Drawing.Color.Gray
-        Me.shape_led1.Location = New System.Drawing.Point(500, 150)
+        Me.shape_led1.Location = New System.Drawing.Point(491, 161)
         Me.shape_led1.Name = "shape_led1"
         Me.shape_led1.Size = New System.Drawing.Size(35, 35)
         '
@@ -238,22 +243,57 @@ Partial Class Form1
         Me.shape_led0.BackStyle = Microsoft.VisualBasic.PowerPacks.BackStyle.Opaque
         Me.shape_led0.BorderColor = System.Drawing.Color.Black
         Me.shape_led0.FillColor = System.Drawing.Color.Gray
-        Me.shape_led0.Location = New System.Drawing.Point(550, 150)
+        Me.shape_led0.Location = New System.Drawing.Point(541, 161)
         Me.shape_led0.Name = "shape_led0"
         Me.shape_led0.Size = New System.Drawing.Size(35, 35)
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(246, 272)
+        Me.TextBox1.Location = New System.Drawing.Point(666, 338)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(100, 22)
         Me.TextBox1.TabIndex = 13
+        '
+        'SerialPort
+        '
+        Me.SerialPort.PortName = "COM"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(651, 376)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(115, 22)
+        Me.TextBox2.TabIndex = 15
+        '
+        'Cbb_SerialPort
+        '
+        Me.Cbb_SerialPort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.Cbb_SerialPort.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.Cbb_SerialPort.DropDownHeight = 80
+        Me.Cbb_SerialPort.FormattingEnabled = True
+        Me.Cbb_SerialPort.IntegralHeight = False
+        Me.Cbb_SerialPort.Location = New System.Drawing.Point(666, 44)
+        Me.Cbb_SerialPort.Name = "Cbb_SerialPort"
+        Me.Cbb_SerialPort.Size = New System.Drawing.Size(100, 24)
+        Me.Cbb_SerialPort.TabIndex = 16
+        '
+        'btn_connect
+        '
+        Me.btn_connect.Location = New System.Drawing.Point(772, 44)
+        Me.btn_connect.Name = "btn_connect"
+        Me.btn_connect.Size = New System.Drawing.Size(96, 23)
+        Me.btn_connect.TabIndex = 14
+        Me.btn_connect.Text = "Connect"
+        Me.btn_connect.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(882, 553)
+        Me.Controls.Add(Me.btn_connect)
+        Me.Controls.Add(Me.Cbb_SerialPort)
+        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.btn_quit)
         Me.Controls.Add(Me.btn_clear)
@@ -267,6 +307,7 @@ Partial Class Form1
         Me.Controls.Add(Me.chb_bit1)
         Me.Controls.Add(Me.chb_bit0)
         Me.Controls.Add(Me.ShapeContainer1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
@@ -295,4 +336,8 @@ Partial Class Form1
     Friend WithEvents shape_led3 As PowerPacks.OvalShape
     Friend WithEvents shape_led1 As PowerPacks.OvalShape
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents SerialPort As IO.Ports.SerialPort
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Cbb_SerialPort As ComboBox
+    Friend WithEvents btn_connect As Button
 End Class
