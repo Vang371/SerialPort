@@ -46,6 +46,7 @@ Public Class Form1
         COMPortList.Clear()
         COMPortList.AddRange(IO.Ports.SerialPort.GetPortNames)
         COMPortList.Sort()
+        sortCOMPortList(COMPortList)
         Cbb_SerialPort.DataSource = COMPortList
     End Sub
 
@@ -102,4 +103,19 @@ Public Class Form1
             Return 0
         End If
     End Function
+
+    Public Sub sortCOMPortList(ByRef comList As ArrayList)
+        Dim i As Integer = 0
+        Dim tempPortList As ArrayList = New ArrayList()
+        Do Until i >= comList.Count
+            Dim txtTemp As String = comList.Item(i)
+            If Len(txtTemp) = 4 Then
+                tempPortList.Add(comList.Item(i))
+                comList.RemoveAt(i)
+            End If
+            i = i + 1
+        Loop
+        tempPortList.AddRange(comList)
+        comList = tempPortList
+    End Sub
 End Class

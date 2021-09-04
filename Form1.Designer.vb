@@ -269,7 +269,7 @@ Partial Class Form1
         '
         Me.Cbb_SerialPort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.Cbb_SerialPort.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.Cbb_SerialPort.DropDownHeight = 80
+        Me.Cbb_SerialPort.DropDownHeight = 120
         Me.Cbb_SerialPort.FormattingEnabled = True
         Me.Cbb_SerialPort.IntegralHeight = False
         Me.Cbb_SerialPort.Location = New System.Drawing.Point(666, 44)
