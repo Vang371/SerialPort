@@ -1,8 +1,4 @@
-﻿Imports System
-Imports System.Threading
-Imports System.IO.Ports
-Imports System.ComponentModel
-Public Class Form1
+﻿Public Class Form1
     Dim colorLedOn As Color = Color.Red
     Dim colorLedOff As Color = Color.Gray
     Private Sub btn_connect_Click(sender As Object, e As EventArgs) Handles btn_connect.Click
