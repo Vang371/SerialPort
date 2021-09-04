@@ -1,6 +1,8 @@
 ﻿Public Class Form1
+    'control color led on and off
     Dim colorLedOn As Color = Color.Red
     Dim colorLedOff As Color = Color.Gray
+    'connect COM port button click event
     Private Sub btn_connect_Click(sender As Object, e As EventArgs) Handles btn_connect.Click
         Dim MsgConnect, StyleMsgConnect As String
         StyleMsgConnect = vbOKOnly + vbInformation
@@ -15,7 +17,7 @@
                     MsgConnect = "Connect successfully."
                     btn_connect.Text = "Disconnect"
                 Catch ex As Exception
-                    MsgConnect = "COM Port used."
+                    MsgConnect = "COM Port used, choose another port."
                 End Try
                 MsgBox(MsgConnect, StyleMsgConnect, "Noti")
             Else
@@ -28,7 +30,7 @@
             End If
         End If
     End Sub
-
+    'combobox index changed event, disconnect when changed COM port
     Private Sub Cbb_SerialPort_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cbb_SerialPort.SelectedIndexChanged
         If SerialPort.IsOpen = True Then
             SerialPort.Close()
@@ -36,8 +38,8 @@
             btn_connect.Text = "Connect"
         End If
     End Sub
+    'drop down combobox show available COM port event
     Private Sub Cbb_SerialPort_DropDown(sender As Object, e As EventArgs) Handles Cbb_SerialPort.DropDown
-        ' Show all available COM ports.
         Dim COMPortList As ArrayList = New ArrayList()
         COMPortList.Clear()
         COMPortList.AddRange(IO.Ports.SerialPort.GetPortNames)
@@ -45,7 +47,7 @@
         sortCOMPortList(COMPortList)
         Cbb_SerialPort.DataSource = COMPortList
     End Sub
-
+    'send data to COM port button click event
     Private Sub btn_send_Click(sender As Object, e As EventArgs) Handles btn_send.Click
         If SerialPort.IsOpen = True Then
             TextBox1.Text = led2tbx()
@@ -59,7 +61,7 @@
             MsgBox("Please connect COM port!.", StyleMsgSend, "Noti")
         End If
     End Sub
-
+    'clear all bit button click event
     Private Sub btn_clear_Click(sender As Object, e As EventArgs) Handles btn_clear.Click
         chb_bit0.Checked = False
         chb_bit1.Checked = False
@@ -71,11 +73,12 @@
         chb_bit7.Checked = False
         TextBox1.Text = led2tbx()
     End Sub
-
+    'exit app button click click event
     Private Sub btn_quit_Click(sender As Object, e As EventArgs) Handles btn_quit.Click
         End
     End Sub
 
+    'Function and Sub support
     Function led2tbx() As String
         Dim valBin_String As String
         valBin_String = Convert.ToString(checkBit(chb_bit0, shape_led0, colorLedOn, colorLedOff))
@@ -103,14 +106,15 @@
     Public Sub sortCOMPortList(ByRef comList As ArrayList)
         Dim i As Integer = 0
         Dim tempPortList As ArrayList = New ArrayList()
-        Do Until i >= comList.Count
-            Dim txtTemp As String = comList.Item(i)
-            If Len(txtTemp) = 4 Then
+        Do
+            'Dim txtTemp As String = comList.Item(i)
+            If Len(comList.Item(i)) = 4 Then
                 tempPortList.Add(comList.Item(i))
                 comList.RemoveAt(i)
+            Else
+                i = i + 1
             End If
-            i = i + 1
-        Loop
+        Loop While i < comList.Count
         tempPortList.AddRange(comList)
         comList = tempPortList
     End Sub
