@@ -50,11 +50,8 @@
     'send data to COM port button click event
     Private Sub btn_send_Click(sender As Object, e As EventArgs) Handles btn_send.Click
         If SerialPort.IsOpen = True Then
-            TextBox1.Text = led2tbx()
-            Dim test As String = TextBox1.Text
-            Dim sendbyte() As Byte = New Byte() {Convert.ToByte(test, 2)}
-            TextBox2.Text = UCase(Convert.ToString(Convert.ToUInt16(TextBox1.Text, 2), 16))
-            SerialPort.Write(sendbyte, 0, 1)
+            tbx_binVal.Text = led2tbx()
+            sendByte(tbx_binVal)
         Else
             Dim StyleMsgSend As String
             StyleMsgSend = vbOKOnly + vbInformation
@@ -71,7 +68,8 @@
         chb_bit5.Checked = False
         chb_bit6.Checked = False
         chb_bit7.Checked = False
-        TextBox1.Text = led2tbx()
+        tbx_binVal.Text = led2tbx()
+        sendByte(tbx_binVal)
     End Sub
     'exit app button click click event
     Private Sub btn_quit_Click(sender As Object, e As EventArgs) Handles btn_quit.Click
@@ -102,7 +100,14 @@
             Return 0
         End If
     End Function
-
+    'send byte to serial port
+    Public Sub sendByte(ByRef tbxBinVal As TextBox)
+        Dim binVal As String = tbxBinVal.Text
+        Dim sendbyte() As Byte = New Byte() {Convert.ToByte(binVal, 2)}
+        'TextBox2.Text = UCase(Convert.ToString(Convert.ToUInt16(TextBox1.Text, 2), 16))
+        SerialPort.Write(sendbyte, 0, 1)
+    End Sub
+    'sort name COM port
     Public Sub sortCOMPortList(ByRef comList As ArrayList)
         Dim i As Integer = 0
         Dim tempPortList As ArrayList = New ArrayList()
