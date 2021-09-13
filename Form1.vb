@@ -1,15 +1,20 @@
 ﻿Public Class Form1
-    'control color led on and off
-    Dim colorLedOn As Color = Color.Red
-    Dim colorLedOff As Color = Color.Gray
+    'my broken enlish
+
+    'variable save data byte
+    Dim binVal_Str As String = "00000000"
+
     'connect COM port button click event
     Private Sub btn_connect_Click(sender As Object, e As EventArgs) Handles btn_connect.Click
         Dim MsgConnect, StyleMsgConnect As String
         StyleMsgConnect = vbOKOnly + vbInformation
+        'if cbb is nothing
         If Cbb_SerialPort.Text = "" Then
-            MsgConnect = "Please choose COM port!"
+            MsgConnect = "Please select COM port!"
             MsgBox(MsgConnect, StyleMsgConnect, "Noti")
+            'else selected com port
         Else
+            'if port close -> open port
             If SerialPort.IsOpen = False Then
                 SerialPort.PortName = Cbb_SerialPort.SelectedItem.ToString
                 Try
@@ -17,10 +22,12 @@
                     MsgConnect = "Connect successfully."
                     btn_connect.Text = "Disconnect"
                 Catch ex As Exception
-                    MsgConnect = "COM Port used, choose another port."
+                    MsgConnect = "COM Port used, select another port."
                 End Try
                 MsgBox(MsgConnect, StyleMsgConnect, "Noti")
-            Else
+            Else 'if port open -> close port
+                timer_1.Enabled = False
+                btn_effect.Text = "Run effect"
                 SerialPort.Close()
                 If SerialPort.IsOpen = False Then
                     MsgConnect = "Disconnect."
@@ -30,7 +37,8 @@
             End If
         End If
     End Sub
-    'combobox index changed event, disconnect when changed COM port
+
+    'combobox index changed event, disconnect when changed COM port in combobox
     Private Sub Cbb_SerialPort_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cbb_SerialPort.SelectedIndexChanged
         If SerialPort.IsOpen = True Then
             SerialPort.Close()
@@ -38,68 +46,168 @@
             btn_connect.Text = "Connect"
         End If
     End Sub
+
     'drop down combobox show available COM port event
     Private Sub Cbb_SerialPort_DropDown(sender As Object, e As EventArgs) Handles Cbb_SerialPort.DropDown
         Dim COMPortList As ArrayList = New ArrayList()
+        'clear array data of combobox
         COMPortList.Clear()
+        'add new items
         COMPortList.AddRange(IO.Ports.SerialPort.GetPortNames)
-        COMPortList.Sort()
+        'sort comportlist in combobox
         sortCOMPortList(COMPortList)
         Cbb_SerialPort.DataSource = COMPortList
     End Sub
+
     'send data to COM port button click event
     Private Sub btn_send_Click(sender As Object, e As EventArgs) Handles btn_send.Click
+        If timer_1.Enabled = False Then
+            If SerialPort.IsOpen = True Then
+                'check bit and rewrite string data.
+                checkBit(binVal_Str)
+                updateLED(binVal_Str)
+                updateTbx(binVal_Str)
+                sendByte(tbx_binVal)
+            Else
+                Dim StyleMsgSend As String
+                StyleMsgSend = vbOKOnly + vbInformation
+                MsgBox("Please connect COM port!", StyleMsgSend, "Noti")
+            End If
+        End If
+    End Sub
+
+    'clear all bit button click event
+    Private Sub btn_clear_Click(sender As Object, e As EventArgs) Handles btn_clear.Click
+        If timer_1.Enabled = False Then
+            If SerialPort.IsOpen = True Then
+                'check bit and rewrite string data.
+                For Each chbClear In Me.Controls.OfType(Of CheckBox)
+                    If Strings.Left(chbClear.Name, 7) = "chb_bit" Then
+                        chbClear.Checked = False
+                    End If
+                Next
+                checkBit(binVal_Str)
+                updateLED(binVal_Str)
+                updateTbx(binVal_Str)
+                sendByte(tbx_binVal)
+            Else
+                Dim StyleMsgSend As String
+                StyleMsgSend = vbOKOnly + vbInformation
+                MsgBox("Please connect COM port!", StyleMsgSend, "Noti")
+            End If
+        End If
+    End Sub
+
+    Private Sub tbx_timeLed_TextChanged(sender As Object, e As EventArgs) Handles tbx_timeLed.TextChanged
+
+    End Sub
+
+    Dim dir As Integer
+    Dim indexEffect As Integer
+    Private Sub btn_effect_Click(sender As Object, e As EventArgs) Handles btn_effect.Click
         If SerialPort.IsOpen = True Then
-            tbx_binVal.Text = led2tbx()
-            sendByte(tbx_binVal)
+            'check bit and rewrite string data.
+            timer_1.Interval = Convert.ToInt32(tbx_timeLed.Text)
+            If timer_1.Enabled = True Then
+                btn_effect.Text = "Run effect"
+                timer_1.Enabled = False
+            Else
+                btn_effect.Text = "Stop effect"
+                timer_1.Enabled = True
+            End If
+
+            If cbb_effect.SelectedItem.ToString = "Chasing left" Then
+                dir = -1
+                indexEffect = 8
+            ElseIf cbb_effect.SelectedItem.ToString = "Chasing right" Then
+                dir = 1
+                indexEffect = 1
+            End If
         Else
             Dim StyleMsgSend As String
             StyleMsgSend = vbOKOnly + vbInformation
-            MsgBox("Please connect COM port!.", StyleMsgSend, "Noti")
+            MsgBox("Please connect COM port!", StyleMsgSend, "Noti")
         End If
     End Sub
-    'clear all bit button click event
-    Private Sub btn_clear_Click(sender As Object, e As EventArgs) Handles btn_clear.Click
-        chb_bit0.Checked = False
-        chb_bit1.Checked = False
-        chb_bit2.Checked = False
-        chb_bit3.Checked = False
-        chb_bit4.Checked = False
-        chb_bit5.Checked = False
-        chb_bit6.Checked = False
-        chb_bit7.Checked = False
-        tbx_binVal.Text = led2tbx()
+
+    Private Sub timer_1_Tick(sender As Object, e As EventArgs) Handles timer_1.Tick
+
+        binVal_Str = "00000000"
+        binVal_Str = Strings.Right(binVal_Str, 8 - indexEffect) & "1" & Strings.Left(binVal_Str, indexEffect - 1)
+        timer_1.Interval = Convert.ToInt32(tbx_timeLed.Text)
+
+        If indexEffect >= 8 And dir = 1 Then
+            indexEffect = 1
+        ElseIf indexEffect <= 1 And dir = -1 Then
+            indexEffect = 8
+        Else
+            indexEffect = indexEffect + dir
+        End If
+
+        updateLED(binVal_Str)
+        updateTbx(binVal_Str)
         sendByte(tbx_binVal)
     End Sub
+
     'exit app button click click event
     Private Sub btn_quit_Click(sender As Object, e As EventArgs) Handles btn_quit.Click
         End
     End Sub
 
-    'Function and Sub support
-    Function led2tbx() As String
-        Dim valBin_String As String
-        valBin_String = Convert.ToString(checkBit(chb_bit0, shape_led0, colorLedOn, colorLedOff))
-        valBin_String = Convert.ToString(checkBit(chb_bit1, shape_led1, colorLedOn, colorLedOff)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit2, shape_led2, colorLedOn, colorLedOff)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit3, shape_led3, colorLedOn, colorLedOff)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit4, shape_led4, colorLedOn, colorLedOff)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit5, shape_led5, colorLedOn, colorLedOff)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit6, shape_led6, colorLedOn, colorLedOff)) & valBin_String
-        valBin_String = Convert.ToString(checkBit(chb_bit7, shape_led7, colorLedOn, colorLedOff)) & valBin_String
+    'change data type and update to textbox
+    Public Sub updateTbx(uptbx As String)
+        tbx_binVal.Text = uptbx
+        tbx_hexVal.Text = UCase(Convert.ToString(Convert.ToUInt16(uptbx, 2), 16))
+        tbx_decVal.Text = Convert.ToString(Convert.ToUInt16(uptbx, 2), 10)
+        tbx_octVal.Text = Convert.ToString(Convert.ToUInt16(uptbx, 2), 8)
+        tbx_ascii.Text = Strings.ChrW(Convert.ToString(Convert.ToUInt16(uptbx, 2)))
+    End Sub
 
-        Return valBin_String
-    End Function
+    Public Sub updateLED(binValCheck As String)
+        Dim indexLED As Integer
+        For Each shpCheck In ShapeContainer1.Shapes
+            'check shape name
+            If Strings.Left(shpCheck.Name, 7) = "shp_led" Then
+                indexLED = Val(Strings.Right(shpCheck.Name, 1))
+                'cut string and compare
+                If Mid(binValCheck, 8 - indexLED, 1) = "1" Then
+                    shpCheck.BackColor = Color.Red
+                Else
+                    shpCheck.BackColor = Color.Gray
+                End If
+            End If
+        Next
+    End Sub
 
-    Function checkBit(bitCheck As CheckBox, shpCtrl As PowerPacks.OvalShape, clrLedOn As Color, clrLedOff As Color) As Integer
-        If bitCheck.Checked = True Then
-            shpCtrl.BackColor = clrLedOn
-            Return 1
-        Else
-            shpCtrl.BackColor = clrLedOff
-            Return 0
-        End If
-    End Function
+    'check bit in checkbox, function loop follow loop way
+    Public Sub checkBit(ByRef binVal_checkBit As String)
+        Dim indexBit As Integer
+        Dim resultBin As String
+        binVal_checkBit = ""
+        For Each chbCheck In Me.Controls.OfType(Of CheckBox)
+            'check checkbox name
+            If Strings.Left(chbCheck.Name, 7) = "chb_bit" Then
+                If chbCheck.Checked = True Then
+                    resultBin = "1"
+                Else
+                    resultBin = "0"
+                End If
+                'get positions obit
+                indexBit = Val(Strings.Right(binVal_checkBit, 1))
+                'position bit = 0: <7 bit first> + <result bit>
+                'position bit = 7: <result bit> + <7 bit last>
+                'position bit = 1 - 6:
+                If indexBit = 0 Then
+                    binVal_checkBit = Strings.Left(binVal_checkBit, 7) & resultBin
+                ElseIf indexBit = 7 Then
+                    binVal_checkBit = resultBin & Strings.Right(binVal_checkBit, 7)
+                Else
+                    binVal_checkBit = Strings.Right(binVal_checkBit, 8 - indexBit) & resultBin & Strings.Left(binVal_checkBit, indexBit - 1)
+                End If
+            End If
+        Next
+    End Sub
+
     'send byte to serial port
     Public Sub sendByte(ByRef tbxBinVal As TextBox)
         Dim binVal As String = tbxBinVal.Text
@@ -107,20 +215,30 @@
         'TextBox2.Text = UCase(Convert.ToString(Convert.ToUInt16(TextBox1.Text, 2), 16))
         SerialPort.Write(sendbyte, 0, 1)
     End Sub
+
     'sort name COM port
     Public Sub sortCOMPortList(ByRef comList As ArrayList)
+        'sort list but still have some porblem
+        comList.Sort()
+        'dim index, list to save temp
         Dim i As Integer = 0
         Dim tempPortList As ArrayList = New ArrayList()
+        'loop while index < (comList items)
         Do
-            'Dim txtTemp As String = comList.Item(i)
+            'if com port num < 10, exam: COM4
             If Len(comList.Item(i)) = 4 Then
+                'add item in top list of temp list
                 tempPortList.Add(comList.Item(i))
+                'remove item in comList
                 comList.RemoveAt(i)
             Else
+                'else ignore, increase index
                 i = i + 1
             End If
         Loop While i < comList.Count
+        'add comlist at bottom temp list
         tempPortList.AddRange(comList)
+        'renew comlist
         comList = tempPortList
     End Sub
 End Class
