@@ -134,7 +134,6 @@
 
         binVal_Str = "00000000"
         binVal_Str = Strings.Right(binVal_Str, 8 - indexEffect) & "1" & Strings.Left(binVal_Str, indexEffect - 1)
-        timer_1.Interval = Convert.ToInt32(tbx_timeLed.Text)
 
         If indexEffect >= 8 And dir = 1 Then
             indexEffect = 1
@@ -183,7 +182,7 @@
     Public Sub checkBit(ByRef binVal_checkBit As String)
         Dim indexBit As Integer
         Dim resultBin As String
-        binVal_checkBit = ""
+        'binVal_checkBit = ""
         For Each chbCheck In Me.Controls.OfType(Of CheckBox)
             'check checkbox name
             If Strings.Left(chbCheck.Name, 7) = "chb_bit" Then
@@ -193,17 +192,18 @@
                     resultBin = "0"
                 End If
                 'get positions obit
-                indexBit = Val(Strings.Right(binVal_checkBit, 1))
+                indexBit = Val(Strings.Right(chbCheck.Name, 1))
                 'position bit = 0: <7 bit first> + <result bit>
                 'position bit = 7: <result bit> + <7 bit last>
-                'position bit = 1 - 6:
-                If indexBit = 0 Then
-                    binVal_checkBit = Strings.Left(binVal_checkBit, 7) & resultBin
-                ElseIf indexBit = 7 Then
-                    binVal_checkBit = resultBin & Strings.Right(binVal_checkBit, 7)
-                Else
-                    binVal_checkBit = Strings.Right(binVal_checkBit, 8 - indexBit) & resultBin & Strings.Left(binVal_checkBit, indexBit - 1)
-                End If
+                'position bit = 1 - 6: <7 - index> + <result bit> + <index - 1>
+                Select Case indexBit
+                    Case 0
+                        binVal_checkBit = Strings.Left(binVal_checkBit, 7) & resultBin
+                    Case 7
+                        binVal_checkBit = resultBin & Strings.Right(binVal_checkBit, 7)
+                    Case 1 To 6
+                        binVal_checkBit = Strings.Left(binVal_checkBit, 7 - indexBit) & resultBin & Strings.Right(binVal_checkBit, indexBit - 1)
+                End Select
             End If
         Next
     End Sub
