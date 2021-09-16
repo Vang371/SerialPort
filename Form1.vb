@@ -114,15 +114,15 @@
             Else
                 btn_effect.Text = "Stop effect"
                 timer_1.Enabled = True
+                If cbb_effect.SelectedItem.ToString = "Chasing left" Then
+                    dir = -1
+                    indexEffect = 8
+                ElseIf cbb_effect.SelectedItem.ToString = "Chasing right" Then
+                    dir = 1
+                    indexEffect = 1
+                End If
             End If
 
-            If cbb_effect.SelectedItem.ToString = "Chasing left" Then
-                dir = -1
-                indexEffect = 8
-            ElseIf cbb_effect.SelectedItem.ToString = "Chasing right" Then
-                dir = 1
-                indexEffect = 1
-            End If
         Else
             Dim StyleMsgSend As String
             StyleMsgSend = vbOKOnly + vbInformation
@@ -202,7 +202,7 @@
                     Case 7
                         binVal_checkBit = resultBin & Strings.Right(binVal_checkBit, 7)
                     Case 1 To 6
-                        binVal_checkBit = Strings.Left(binVal_checkBit, 7 - indexBit) & resultBin & Strings.Right(binVal_checkBit, indexBit - 1)
+                        binVal_checkBit = Strings.Left(binVal_checkBit, 7 - indexBit) & resultBin & Strings.Right(binVal_checkBit, indexBit)
                 End Select
             End If
         Next
